@@ -38,5 +38,19 @@ client.on("messageCreate", message => {
 client.once("clientReady", () => {
   console.log(`Logged in as ${client.user.tag}`);
 });
+client.on('interactionCreate', async interaction => {
+
+    if (!interaction.isButton()) return;
+
+    if (interaction.customId === 'ban_button') {
+
+        if (!interaction.member.permissions.has('BanMembers')) {
+            return interaction.reply({ content: "❌ ما عندك صلاحية.", ephemeral: true });
+        }
+
+        await interaction.reply({ content: "🔨 منشن العضو اللي تبي تبنده.", ephemeral: true });
+    }
+
+});
 
 client.login(process.env.TOKEN);
